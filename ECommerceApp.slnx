@@ -1,3 +1,7 @@
 <Solution>
+  <Project Path="ECommerceApp.BusinessLayer/ECommerceApp.BusinessLayer.csproj" Id="8f21e4d0-d273-44b9-b376-006371179c0b" />
+  <Project Path="ECommerceApp.DataAccessLayer/ECommerceApp.DataAccessLayer.csproj" Id="d24c5130-8ebe-4051-8111-5d485a798f4b" />
+  <Project Path="ECommerceApp.Domain/ECommerceApp.Domain.csproj" Id="54b5253d-5f48-48be-81a7-9b36864247e1" />
+  <Project Path="ECommerceApp.PresentationLayer/ECommerceApp.PresentationLayer.csproj" Id="df09234e-420e-4829-a696-ff71a4543ddd" />
   <Project Path="ECommerceApp/ECommerceApp.csproj" />
 </Solution>

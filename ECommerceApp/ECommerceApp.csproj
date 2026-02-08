@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ECommerceApp.PresentationLayer\ECommerceApp.PresentationLayer.csproj" />
+  </ItemGroup>
+
 </Project>

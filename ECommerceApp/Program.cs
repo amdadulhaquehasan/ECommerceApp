@@ -1,4 +1,6 @@
-using ECommerceApp.Data;
+using ECommerceApp.DataAccessLayer.Data;
+using ECommerceApp.PresentationLayer.Module.Categories;
+using ECommerceApp.PresentationLayer.Module.Categories.Interface;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,8 @@ builder.Services.AddDbContext<ECommerceDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+
+builder.Services.AddScoped<ICategoryViewModelProvider, CategoryViewModelProvider>();
 
 var app = builder.Build();
 
