@@ -1,15 +1,47 @@
-﻿using ECommerceApp.BusinessLayer.Module.Categories.Interface;
+﻿using ECommerceApp.BusinessLayer.Exceptions;
+using ECommerceApp.BusinessLayer.Modules.Categories.Interface;
+using ECommerceApp.DataAccessLayer.Modules.Categories.Interfaces;
 using ECommerceApp.Domain.Entities;
 
-namespace ECommerceApp.BusinessLayer.Module.Categories
+namespace ECommerceApp.BusinessLayer.Modules.Categories
 {
     public class CategoryService : ICategoryService
     {
-        public Task<bool> CreateCategoryAsync(Category category)
+        private readonly ICategoryRepository _categoryRepository;
+        public CategoryService(ICategoryRepository categoryRepository)
         {
-            throw new NotImplementedException();
-            //category.CreatedDate = DateTime.Now;
-            //Category category1 = _context.Categories.FirstOrDefault(m => m.Name == category.Name);
+            _categoryRepository = categoryRepository;
+        }
+
+        public async Task<IReadOnlyList<Category>> GetAllAsync()
+        {
+            return await _categoryRepository.GetAllAsync();
+        }
+
+        public async Task<Category?> GetByIdAsync(int id)
+        {
+            return await _categoryRepository.GetByIdAsync(id);
+        }
+
+        public async Task<Category> AddAsync(Category category)
+        {
+            category.CreatedDate = DateTime.UtcNow;
+            bool exists = await _categoryRepository.ExistsByNameAsync(category.Name);
+            if (exists)
+            {
+                throw new InvalidUserInputException($"A category with the name '{category.Name}' already exists.");
+            }
+            return await _categoryRepository.AddAsync(category);
+        }
+
+        public async Task UpdateAsync(Category category)
+        {
+            await _categoryRepository.UpdateAsync(category);
+        }
+
+        public async Task<bool> DeleteAsync(Category category)
+        {
+            return await _categoryRepository.DeleteAsync(category);
         }
     }
 }

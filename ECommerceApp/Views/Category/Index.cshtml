@@ -1,0 +1,44 @@
+﻿@model IReadOnlyList<ECommerceApp.PresentationLayer.Modules.Categories.ViewModel.CategoryListViewModel>
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="category-page">
+    <h1>Categories</h1>
+    <p class="lead">Manage your product categories.</p>
+
+    <p>
+        <a asp-action="Create" class="btn btn-category-primary">New Category</a>
+    </p>
+
+    <div class="category-card">
+        <div class="card-body p-0">
+            @if (Model.Count == 0)
+            {
+                <div class="p-4 text-center text-muted">No categories yet. Create one to get started.</div>
+            }
+            else
+            {
+                <ul class="category-list">
+                    @foreach (var item in Model)
+                    {
+                        <li class="category-list-item">
+                            <div>
+                                <span class="category-name">@item.Name</span>
+                                @if (!string.IsNullOrEmpty(item.Description))
+                                {
+                                    <div class="category-meta">@item.Description</div>
+                                }
+                            </div>
+                            <div class="category-actions">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-category-outline btn-sm">Details</a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-category-outline btn-sm">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-category-danger btn-sm">Delete</a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>

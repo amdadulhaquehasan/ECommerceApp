@@ -2,8 +2,10 @@
 
 namespace ECommerceApp.PresentationLayer.Modules.Categories.ViewModel
 {
-    public class CategoryCreateViewModel
+    public class CategoryEditViewModel
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Category name is required.")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Category name must be between 3 and 50 characters.")]
         [Display(Name = "Category Name")]
@@ -12,5 +14,7 @@ namespace ECommerceApp.PresentationLayer.Modules.Categories.ViewModel
         [StringLength(50, ErrorMessage = "Description cannot exceed 500 characters.")]
         [Display(Name = "Category Description")]
         public string? Description { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }

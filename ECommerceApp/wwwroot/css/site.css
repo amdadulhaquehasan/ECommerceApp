@@ -21,11 +21,180 @@ body {
   margin-bottom: 60px;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* Category CRUD - Clean card-based layout */
+.category-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 0;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+    .category-page h1 {
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: #1a1a2e;
+        margin-bottom: 0.5rem;
+    }
+
+    .category-page .lead {
+        color: #64748b;
+        margin-bottom: 2rem;
+    }
+
+/* Cards */
+.category-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    border: 1px solid #e2e8f0;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+    .category-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,.1);
+        border-color: #cbd5e1;
+    }
+
+    .category-card .card-body {
+        padding: 1.25rem 1.5rem;
+    }
+
+/* Form card */
+.category-form-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    border: 1px solid #e2e8f0;
+    padding: 1.5rem 2rem;
+    max-width: 480px;
+}
+
+    .category-form-card .form-label {
+        font-weight: 600;
+        color: #334155;
+    }
+
+    .category-form-card .form-control {
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+        padding: 0.5rem 0.75rem;
+    }
+
+        .category-form-card .form-control:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+        }
+
+/* Buttons */
+.btn-category-primary {
+    background: #0ea5e9;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.25rem;
+    font-weight: 600;
+}
+
+    .btn-category-primary:hover {
+        background: #0284c7;
+        color: #fff;
+    }
+
+.btn-category-outline {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: #475569;
+    background: #fff;
+}
+
+    .btn-category-outline:hover {
+        background: #f8fafc;
+        border-color: #cbd5e1;
+        color: #1e293b;
+    }
+
+.btn-category-danger {
+    background: #dc2626;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.25rem;
+    font-weight: 600;
+}
+
+    .btn-category-danger:hover {
+        background: #b91c1c;
+        color: #fff;
+    }
+
+/* Table / list */
+.category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+    .category-list-item:last-child {
+        border-bottom: none;
+    }
+
+    .category-list-item .category-name {
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    .category-list-item .category-meta {
+        font-size: 0.875rem;
+        color: #64748b;
+    }
+
+.category-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Details view */
+.detail-row {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+    .detail-row:last-child {
+        border-bottom: none;
+    }
+
+.detail-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    margin-bottom: 0.25rem;
+}
+
+.detail-value {
+    font-size: 1rem;
+    color: #1e293b;
+}
+
+/* Delete confirmation */
+.delete-warning {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    color: #991b1b;
+    margin-bottom: 1.5rem;
+}
+
+.validation-summary-errors ul {
+    margin: 0;
+    padding-left: 1.25rem;
 }

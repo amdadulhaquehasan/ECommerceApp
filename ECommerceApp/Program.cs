@@ -1,6 +1,10 @@
+using ECommerceApp.BusinessLayer.Modules.Categories;
+using ECommerceApp.BusinessLayer.Modules.Categories.Interface;
 using ECommerceApp.DataAccessLayer.Data;
-using ECommerceApp.PresentationLayer.Module.Categories;
-using ECommerceApp.PresentationLayer.Module.Categories.Interface;
+using ECommerceApp.DataAccessLayer.Modules.Categories;
+using ECommerceApp.DataAccessLayer.Modules.Categories.Interfaces;
+using ECommerceApp.PresentationLayer.Modules.Categories;
+using ECommerceApp.PresentationLayer.Modules.Categories.Interface;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,8 +17,12 @@ builder.Services.AddDbContext<ECommerceDbContext>(options =>
     ));
 
 builder.Services.AddScoped<ICategoryViewModelProvider, CategoryViewModelProvider>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 var app = builder.Build();
+
+app.UseStatusCodePagesWithReExecute("/Error/StatusCode", "?Statuscode={0}");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -1,9 +1,14 @@
-﻿using ECommerceApp.PresentationLayer.Module.Categories.ViewModel;
+﻿using ECommerceApp.Domain.Entities;
+using ECommerceApp.PresentationLayer.Modules.Categories.ViewModel;
 
-namespace ECommerceApp.PresentationLayer.Module.Categories.Interface
+namespace ECommerceApp.PresentationLayer.Modules.Categories.Interface
 {
     public interface ICategoryViewModelProvider
     {
-        Task<(bool Success, string? ErrorMessage)> CreateCategoryAsync(CategoryCreateViewModel categoryCreateViewModel);
+        Task<CategoryEditViewModel?> GetByIdAsync(int id);
+        Task<IReadOnlyList<CategoryListViewModel>> GetAllAsync();
+        Task<Category> AddAsync(CategoryCreateViewModel categoryVm);
+        Task UpdateAsync(CategoryEditViewModel categoryVm);
+        Task<bool> DeleteAsync(int id);
     }
 }

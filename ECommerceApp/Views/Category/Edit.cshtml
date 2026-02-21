@@ -1,28 +1,31 @@
-﻿@model ECommerceApp.PresentationLayer.Modules.Categories.ViewModel.CategoryCreateViewModel
+﻿@model ECommerceApp.PresentationLayer.Modules.Categories.ViewModel.CategoryEditViewModel
 @{
-    ViewData["Title"] = "Create Category";
+    ViewData["Title"] = "Edit Category";
 }
 
 <div class="category-page">
-    <h1>Create Category</h1>
-    <p class="lead">Add a new product category.</p>
+    <h1>Edit Category</h1>
+    <p class="lead">Update category details.</p>
 
     <div class="category-form-card">
-        <form asp-action="Create" method="post">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CreatedDate" />
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
             <div class="mb-3">
                 <label asp-for="Name" class="form-label"></label>
-                <input asp-for="Name" class="form-control" placeholder="e.g. Electronics" />
+                <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Description" class="form-label"></label>
-                <input asp-for="Description" class="form-control" placeholder="Short description" />
+                <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="d-flex gap-2 mt-4">
-                <button type="submit" class="btn btn-category-primary">Create</button>
+                <button type="submit" class="btn btn-category-primary">Save</button>
                 <a asp-action="Index" class="btn btn-category-outline">Cancel</a>
+                <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-category-outline">Details</a>
             </div>
         </form>
     </div>
