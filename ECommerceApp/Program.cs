@@ -16,6 +16,8 @@ builder.Services.AddDbContext<ECommerceDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
+builder.Services.AddAutoMapper(cfg => { }, typeof(CategoryMappingProfile).Assembly);
+
 builder.Services.AddScoped<ICategoryViewModelProvider, CategoryViewModelProvider>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();

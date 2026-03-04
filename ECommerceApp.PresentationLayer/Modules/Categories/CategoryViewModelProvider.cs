@@ -1,4 +1,5 @@
-﻿using ECommerceApp.BusinessLayer.Modules.Categories.Interface;
+﻿using AutoMapper;
+using ECommerceApp.BusinessLayer.Modules.Categories.Interface;
 using ECommerceApp.Domain.Entities;
 using ECommerceApp.PresentationLayer.Modules.Categories.Interface;
 using ECommerceApp.PresentationLayer.Modules.Categories.ViewModel;
@@ -8,20 +9,18 @@ namespace ECommerceApp.PresentationLayer.Modules.Categories
     public class CategoryViewModelProvider : ICategoryViewModelProvider
     {
         private readonly ICategoryService _categoryService;
-        public CategoryViewModelProvider(ICategoryService categoryService)
+        private readonly IMapper _mapper;
+
+        public CategoryViewModelProvider(ICategoryService categoryService, IMapper mapper)
         {
             _categoryService = categoryService;
+            _mapper = mapper;
         }
 
         public async Task<IReadOnlyList<CategoryListViewModel>> GetAllAsync()
         {
             var categoryList = await _categoryService.GetAllAsync();
-            return categoryList.Select(c => new CategoryListViewModel
-            {
-                Id = c.Id,
-                Name = c.Name,
-                Description = c.Description
-            }).ToList();
+            return _mapper.Map<IReadOnlyList<CategoryListViewModel>>(categoryList);
         }
 
         public async Task<CategoryEditViewModel?> GetByIdAsync(int id)
@@ -29,31 +28,19 @@ namespace ECommerceApp.PresentationLayer.Modules.Categories
             var category = await _categoryService.GetByIdAsync(id);
             if (category == null) return null;
 
-            return new CategoryEditViewModel
-            {
-                Id = category.Id,
-                Name = category.Name,
-                Description = category.Description
-            };
+            return _mapper.Map<CategoryEditViewModel>(category);
         }
 
         public async Task<Category> AddAsync(CategoryCreateViewModel categoryVm)
         {
-            Category category = new Category();
-            category.Name = categoryVm.Name;
-            category.Description = categoryVm.Description;
+            Category category = _mapper.Map<Category>(categoryVm);
             await _categoryService.AddAsync(category);
             return category;
         }
 
         public async Task UpdateAsync(CategoryEditViewModel categoryVm)
         {
-            Category category = new Category();
-            category.Id = categoryVm.Id;
-            category.Name = categoryVm.Name;
-            category.Description = categoryVm.Description;
-            category.CreatedDate = categoryVm.CreatedDate;
-
+            Category category = _mapper.Map<Category>(categoryVm);
             await _categoryService.UpdateAsync(category);
         }
 

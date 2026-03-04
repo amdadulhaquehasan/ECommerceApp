@@ -36,6 +36,11 @@ namespace ECommerceApp.BusinessLayer.Modules.Categories
 
         public async Task UpdateAsync(Category category)
         {
+            bool exists = await _categoryRepository.ExistsByNameAsync(category.Name, category.Id);
+            if (exists)
+            {
+                throw new InvalidUserInputException($"A category with the name '{category.Name}' already exists.");
+            }
             await _categoryRepository.UpdateAsync(category);
         }
 

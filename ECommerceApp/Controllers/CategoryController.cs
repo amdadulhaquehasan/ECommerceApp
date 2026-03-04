@@ -57,5 +57,64 @@ namespace ECommerceApp.Controllers
 
             return View(viewModel);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, CategoryEditViewModel viewModel)
+        {
+            if (id != viewModel.Id)
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            try
+            {
+                await _categoryViewModelProvider.UpdateAsync(viewModel);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (InvalidUserInputException ex)
+            {
+                ModelState.AddModelError(nameof(CategoryEditViewModel.Name), ex.Message);
+                return View(viewModel);
+            }
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var viewModel = await _categoryViewModelProvider.GetByIdAsync(id);
+            if (viewModel == null)
+            {
+                return NotFound();
+            }
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var viewModel = await _categoryViewModelProvider.GetByIdAsync(id);
+            if (viewModel == null)
+            {
+                return NotFound();
+            }
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirm(int id)
+        {
+            bool isDeleted = await _categoryViewModelProvider.DeleteAsync(id);
+            if (!isDeleted)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
