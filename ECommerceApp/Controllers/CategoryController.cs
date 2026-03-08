@@ -7,18 +7,23 @@ namespace ECommerceApp.Controllers
 {
     public class CategoryController : Controller
     {
+        #region Dependencies
         private readonly ICategoryViewModelProvider _categoryViewModelProvider;
         public CategoryController(ICategoryViewModelProvider categoryViewModelProvider)
         {
             _categoryViewModelProvider = categoryViewModelProvider;
         }
+        #endregion
 
+        #region View All Categories
         public async Task<IActionResult> Index()
         {
             var categories = await _categoryViewModelProvider.GetAllAsync();
             return View(categories);
         }
+        #endregion
 
+        #region Create
         //Get: Category/Create
         public IActionResult Create()
         {
@@ -46,7 +51,9 @@ namespace ECommerceApp.Controllers
                 return View(category);
             }
         }
+        #endregion
 
+        #region Edit
         public async Task<IActionResult> Edit(int id)
         {
             var viewModel = await _categoryViewModelProvider.GetByIdAsync(id);
@@ -83,7 +90,9 @@ namespace ECommerceApp.Controllers
                 return View(viewModel);
             }
         }
+        #endregion
 
+        #region Details
         public async Task<IActionResult> Details(int id)
         {
             var viewModel = await _categoryViewModelProvider.GetByIdAsync(id);
@@ -93,7 +102,9 @@ namespace ECommerceApp.Controllers
             }
             return View(viewModel);
         }
+        #endregion
 
+        #region Delete
         public async Task<IActionResult> Delete(int id)
         {
             var viewModel = await _categoryViewModelProvider.GetByIdAsync(id);
@@ -116,5 +127,6 @@ namespace ECommerceApp.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        #endregion
     }
 }

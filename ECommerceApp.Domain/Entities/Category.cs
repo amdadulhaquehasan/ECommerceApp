@@ -10,11 +10,12 @@ namespace ECommerceApp.Domain.Entities
         [StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
 
-        [StringLength(50)]
-        public string? Description { get; set; }
+        [Required]
+        [StringLength(500)]
+        public string Description { get; set; }
         public DateTime CreatedDate { get; set; }
 
         // Relationship: One Category can have many Products
-        //public ICollection<Product> products { get; set; } = new List<Product>();
+        public ICollection<Product> products { get; set; } = new List<Product>();
     }
 }

@@ -1,10 +1,16 @@
 using ECommerceApp.BusinessLayer.Modules.Categories;
 using ECommerceApp.BusinessLayer.Modules.Categories.Interface;
+using ECommerceApp.BusinessLayer.Modules.Products;
+using ECommerceApp.BusinessLayer.Modules.Products.Interfaces;
 using ECommerceApp.DataAccessLayer.Data;
 using ECommerceApp.DataAccessLayer.Modules.Categories;
 using ECommerceApp.DataAccessLayer.Modules.Categories.Interfaces;
+using ECommerceApp.DataAccessLayer.Modules.Products;
+using ECommerceApp.DataAccessLayer.Modules.Products.Interfaces;
 using ECommerceApp.PresentationLayer.Modules.Categories;
 using ECommerceApp.PresentationLayer.Modules.Categories.Interface;
+using ECommerceApp.PresentationLayer.Modules.Products;
+using ECommerceApp.PresentationLayer.Modules.Products.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,10 +23,14 @@ builder.Services.AddDbContext<ECommerceDbContext>(options =>
     ));
 
 builder.Services.AddAutoMapper(cfg => { }, typeof(CategoryMappingProfile).Assembly);
+builder.Services.AddAutoMapper(cfg => { }, typeof(ProductMappingProfile).Assembly);
 
 builder.Services.AddScoped<ICategoryViewModelProvider, CategoryViewModelProvider>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductViewModelProvider, ProductViewModelProvider>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 

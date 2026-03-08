@@ -1,0 +1,36 @@
+﻿@model ECommerceApp.PresentationLayer.Modules.Products.ViewModel.ProductEditViewModel
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<div class="category-page">
+    <h1>Delete Product</h1>
+    <p class="lead">This action cannot be undone.</p>
+
+    <div class="delete-warning">
+        You are about to delete <strong>@Model.Name</strong>. Are you sure?
+    </div>
+
+    <div class="category-card">
+        <div class="card-body">
+            <div class="detail-row">
+                <div class="detail-label">Name</div>
+                <div class="detail-value">@Model.Name</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">SKU</div>
+                <div class="detail-value">@Model.SKU</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Price</div>
+                <div class="detail-value">@Model.Price.ToString("C")</div>
+            </div>
+        </div>
+    </div>
+
+    <form asp-action="DeleteConfirm" method="post" class="mt-4">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-category-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-category-outline ms-2">Cancel</a>
+    </form>
+</div>

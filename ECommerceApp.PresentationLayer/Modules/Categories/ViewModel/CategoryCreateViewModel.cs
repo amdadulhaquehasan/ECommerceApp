@@ -9,7 +9,8 @@ namespace ECommerceApp.PresentationLayer.Modules.Categories.ViewModel
         [Display(Name = "Category Name")]
         public string Name { get; set; }
 
-        [StringLength(50, ErrorMessage = "Description cannot exceed 500 characters.")]
+        [Required(ErrorMessage = "Category description is required")]
+        [StringLength(500, ErrorMessage = "Description cannot exceed 500 characters.")]
         [Display(Name = "Category Description")]
         public string? Description { get; set; }
     }

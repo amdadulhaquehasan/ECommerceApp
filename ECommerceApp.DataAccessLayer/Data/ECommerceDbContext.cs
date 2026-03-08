@@ -11,12 +11,13 @@ namespace ECommerceApp.DataAccessLayer.Data
         }
 
         public DbSet<Category> Catagories { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure table name
+            // Configure Category table name
             modelBuilder.Entity<Category>().ToTable("Category");
 
             modelBuilder.Entity<Category>().HasData(
@@ -24,6 +25,15 @@ namespace ECommerceApp.DataAccessLayer.Data
                 new Category { Id = 2, Name = "Books", Description = "Various kinds of books", CreatedDate = new DateTime(2026, 01, 01)},
                 new Category { Id = 3, Name = "Clothing", Description = "Apparel and garments", CreatedDate = new DateTime(2026, 01, 01) }
             );
+
+            // Configure Product table name
+            modelBuilder.Entity<Product>().ToTable("Product");
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Category)
+                .WithMany(c => c.products)
+                .HasForeignKey(p => p.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
 
         }
     }
