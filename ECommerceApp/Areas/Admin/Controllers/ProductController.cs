@@ -5,8 +5,9 @@ using ECommerceApp.PresentationLayer.Modules.Products.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace ECommerceApp.Controllers
+namespace ECommerceApp.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ProductController : Controller
     {
         #region Dependencies
@@ -105,9 +106,9 @@ namespace ECommerceApp.Controllers
         #endregion
 
         #region Edit
-        public async Task<IActionResult> Edit(int productId)
+        public async Task<IActionResult> Edit(int id)
         {
-            var product = await _productViewModelProvider.GetByIdAsync(productId);
+            var product = await _productViewModelProvider.GetByIdAsync(id);
             if (product == null)
             {
                 return NotFound();

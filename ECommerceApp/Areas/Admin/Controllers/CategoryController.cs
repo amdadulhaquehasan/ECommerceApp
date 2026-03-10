@@ -3,8 +3,9 @@ using ECommerceApp.PresentationLayer.Modules.Categories.Interface;
 using ECommerceApp.PresentationLayer.Modules.Categories.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ECommerceApp.Controllers
+namespace ECommerceApp.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         #region Dependencies

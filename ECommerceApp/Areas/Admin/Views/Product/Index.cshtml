@@ -8,7 +8,7 @@
     <p class="lead">Manage your products.</p>
 
     <p>
-        <a asp-action="Create" class="btn btn-category-primary">New Product</a>
+        <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="btn btn-category-primary">New Product</a>
     </p>
 
     <div class="category-card">
@@ -28,9 +28,9 @@
                                 <div class="category-meta">@item.SKU · @item.CategoryName · @item.Price.ToString("C")</div>
                             </div>
                             <div class="category-actions">
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-category-outline btn-sm">Details</a>
-                                <a asp-action="Edit" asp-route-productId="@item.Id" class="btn btn-category-outline btn-sm">Edit</a>
-                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-category-danger btn-sm">Delete</a>
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Details" asp-route-id="@item.Id" class="btn btn-category-outline btn-sm">Details</a>
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-category-outline btn-sm">Edit</a>
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-category-danger btn-sm">Delete</a>
                             </div>
                         </li>
                     }
