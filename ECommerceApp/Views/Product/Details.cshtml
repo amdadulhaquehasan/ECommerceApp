@@ -9,6 +9,15 @@
 
     <div class="category-card">
         <div class="card-body">
+            @if (!string.IsNullOrEmpty(Model.ImagePath))
+            {
+                <div class="detail-row">
+                    <div class="detail-label">Image</div>
+                    <div class="detail-value">
+                        <img src="@Model.ImagePath" alt="@Model.Name" class="img-fluid" style="max-height: 200px;" />
+                    </div>
+                </div>
+            }
             <div class="detail-row">
                 <div class="detail-label">Name</div>
                 <div class="detail-value">@Model.Name</div>

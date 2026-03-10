@@ -20,6 +20,9 @@ namespace ECommerceApp.Domain.Entities
         [Required]
         [StringLength(50)]
         public string SKU { get; set; }
+
+        [StringLength(500)]
+        public string? ImagePath { get; set; }
         public int CategoryId { get; set; } // Foreign key to Category
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }

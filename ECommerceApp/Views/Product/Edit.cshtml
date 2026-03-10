@@ -8,11 +8,19 @@
     <p class="lead">Update product details.</p>
 
     <div class="category-form-card">
-        <form asp-action="Edit" method="post">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="CreatedDate" />
             <input type="hidden" asp-for="UpdatedDate" />
+            <input type="hidden" asp-for="ImagePath" />
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <div class="mb-3">
+                <label asp-for="CategoryId" class="form-label"></label>
+                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categories">
+                    <option value="">-- Select Category --</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
             <div class="mb-3">
                 <label asp-for="Name" class="form-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -33,13 +41,16 @@
                 <input asp-for="SKU" class="form-control" />
                 <span asp-validation-for="SKU" class="text-danger"></span>
             </div>
-            <div class="mb-3">
-                <label asp-for="CategoryId" class="form-label"></label>
-                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categories">
-                    <option value="">-- Select Category --</option>
-                </select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
+            @if (!string.IsNullOrEmpty(Model.ImagePath))
+            {
+                <div class="mb-2">
+                    <img src="@Model.ImagePath" alt="@Model.Name" style="max-height: 120px;" class="rounded" />
+                    <p class="small text-muted">Current image. Upload a new file to replace.</p>
+                </div>
+            }
+
+            <input type="file" name="imageFile" class="form-control" accept=".jpg, .jpeg, .png" />
+
             <div class="d-flex gap-2 mt-4">
                 <button type="submit" class="btn btn-category-primary">Save</button>
                 <a asp-action="Index" class="btn btn-category-outline">Cancel</a>

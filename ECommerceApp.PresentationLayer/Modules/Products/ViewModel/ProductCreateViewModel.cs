@@ -22,7 +22,10 @@ namespace ECommerceApp.PresentationLayer.Modules.Products.ViewModel
         [Required(ErrorMessage = "SKU is required")]
         [StringLength(50, ErrorMessage = "SKU cannot exceed 50 characters.")]
         [Display(Name = "SKU")]
-        public string SKU { get; set; }
+        public string SKU { get; set; } = string.Empty;
+
+        [Display(Name = "Product Image")]
+        public string? ImagePath { get; set; }
 
         [Required(ErrorMessage = "Category is required")]
         [Display(Name = "Category")]
