@@ -105,6 +105,21 @@ namespace ECommerceApp.Areas.Admin.Controllers
         }
         #endregion
 
+        #region Helper Method for Image Deletion
+        private void DeleteProductImage(string? imagePath)
+        {
+            if (string.IsNullOrEmpty(imagePath))
+            { 
+                return; 
+            }
+            var fullPath = Path.Combine(_env.WebRootPath, imagePath.TrimStart('/'));
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+        }
+        #endregion
+
         #region Edit
         public async Task<IActionResult> Edit(int id)
         {
@@ -178,6 +193,14 @@ namespace ECommerceApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirm(int id)
         {
+            var product = await _productViewModelProvider.GetByIdAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            DeleteProductImage(product.ImagePath);
+
             bool isDeleted = await _productViewModelProvider.DeleteAsync(id);
             if (!isDeleted)
             {
