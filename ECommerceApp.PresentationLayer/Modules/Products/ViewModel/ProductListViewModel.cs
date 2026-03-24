@@ -9,6 +9,7 @@ namespace ECommerceApp.PresentationLayer.Modules.Products.ViewModel
         public string Description { get; set; }
         public double Price { get; set; }
         public string SKU { get; set; }
+        public string? ImagePath { get; set; }
         public int CategoryId { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
