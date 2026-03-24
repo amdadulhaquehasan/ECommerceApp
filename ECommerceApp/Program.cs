@@ -30,6 +30,7 @@ builder.Services.AddDbContext<ECommerceDbContext>(options =>
 
 builder.Services.AddAutoMapper(cfg => { }, typeof(CategoryMappingProfile).Assembly);
 builder.Services.AddAutoMapper(cfg => { }, typeof(ProductMappingProfile).Assembly);
+builder.Services.AddAutoMapper(cfg => { }, typeof(CartMappingProfile).Assembly);
 
 // Session related services
 builder.Services.AddDistributedMemoryCache();

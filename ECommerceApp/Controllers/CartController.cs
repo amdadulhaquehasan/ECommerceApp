@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceApp.Controllers
 {
-    public class CartController : BaseController
+    public class CartController : BaseCartController
     {
         public CartController(ICartViewModelProvider cartViewModelProvider)
             : base(cartViewModelProvider)

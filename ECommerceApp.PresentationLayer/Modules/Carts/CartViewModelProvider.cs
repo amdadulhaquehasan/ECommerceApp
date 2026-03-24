@@ -1,4 +1,5 @@
-﻿using ECommerceApp.BusinessLayer.Modules.Carts.Interfaces;
+﻿using AutoMapper;
+using ECommerceApp.BusinessLayer.Modules.Carts.Interfaces;
 using ECommerceApp.PresentationLayer.Modules.Carts.Interfaces;
 using ECommerceApp.PresentationLayer.Modules.Carts.ViewModel;
 
@@ -7,10 +8,12 @@ namespace ECommerceApp.PresentationLayer.Modules.Carts
     public class CartViewModelProvider : ICartViewModelProvider
     {
         private readonly ICartService _cartService;
+        private readonly IMapper _mapper;
 
-        public CartViewModelProvider(ICartService cartService)
+        public CartViewModelProvider(ICartService cartService, IMapper mapper)
         {
             _cartService = cartService;
+            _mapper = mapper;
         }
 
         public void AddItem(int productId, string productName, decimal unitPrice, int quantity = 1)
@@ -21,19 +24,7 @@ namespace ECommerceApp.PresentationLayer.Modules.Carts
         public CartViewModel GetCartViewModel()
         {
             var cart = _cartService.GetCart();
-            return new CartViewModel
-            {
-                Items = cart.Items.Select(i => new CartItemViewModel
-                {
-                    ProductId = i.ProductId,
-                    ProductName = i.ProductName,
-                    UnitPrice = i.UnitPrice,
-                    Quantity = i.Quantity,
-                    LineTotal = i.UnitPrice * i.Quantity
-                }).ToList(),
-                GrandTotal = cart.GrandTotal,
-                TotalItems = cart.TotalItems
-            };
+            return _mapper.Map<CartViewModel>(cart);
         }
 
         public void RemoveItem(int productId)

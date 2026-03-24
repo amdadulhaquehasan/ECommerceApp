@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ECommerceApp.Controllers
 {
-    public class BaseController : Controller
+    public class BaseCartController : Controller
     {
         protected readonly ICartViewModelProvider _cartViewModelProvider;
 
-        public BaseController(ICartViewModelProvider cartViewModelProvider)
+        public BaseCartController(ICartViewModelProvider cartViewModelProvider)
         {
             _cartViewModelProvider = cartViewModelProvider;
         }
