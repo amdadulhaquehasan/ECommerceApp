@@ -34,7 +34,7 @@ namespace ECommerceApp.Domain.Entities
         // public Inventory? Inventory { get; set; }
 
         // Relationship: One product can have many order items
-        // public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
         // Relationship: One product can be in many shopping carts
         // public ICollection<ShoppingCart> shoppingCarts { get; set; } = new List<ShoppingCart>();

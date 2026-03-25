@@ -35,5 +35,10 @@ namespace ECommerceApp.DataAccessLayer.Modules.Carts
             var encode = Encoding.UTF8.GetBytes(json);
             Session.Set(CartSessionKey, encode);
         }
+
+        public void ClearCart()
+        {
+            Session.Remove(CartSessionKey);
+        }
     }
 }

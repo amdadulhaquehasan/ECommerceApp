@@ -1,0 +1,76 @@
+﻿@model ECommerceApp.PresentationLayer.Modules.Orders.ViewModel.CheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
+    var culture = new System.Globalization.CultureInfo("bn-BD");
+}
+
+<div class="container py-4">
+    <h1>Checkout</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Index" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="card mb-3">
+                    <div class="card-header">Shipping Information</div>
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <label asp-for="FirstName" class="form-label"></label>
+                                <input asp-for="FirstName" class="form-control" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="LastName" class="form-label"></label>
+                                <input asp-for="LastName" class="form-control" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                            <div class="col-12">
+                                <label asp-for="Email" class="form-label"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="col-12">
+                                <label asp-for="Phone" class="form-label"></label>
+                                <input asp-for="Phone" class="form-control" />
+                            </div>
+                            <div class="col-12">
+                                <label asp-for="ShipAddress" class="form-label"></label>
+                                <textarea asp-for="ShipAddress" class="form-control" rows="3"></textarea>
+                                <span asp-validation-for="ShipAddress" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Place Order</button>
+                <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-secondary">Back to Cart</a>
+            </form>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Order Summary</div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        @foreach (var item in Model.Cart.Items)
+                        {
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>@item.ProductName x @item.Quantity</span>
+                                <span>@item.LineTotal.ToString("C", culture)</span>
+                            </li>
+                        }
+                    </ul>
+                    <p class="mt-2 mb-0">
+                        <strong>Total: @Model.Cart.GrandTotal.ToString("C", culture)</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

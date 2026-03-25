@@ -6,5 +6,6 @@ namespace ECommerceApp.DataAccessLayer.Modules.Carts.Interfaces
     {
         Cart GetCart();
         void SaveCart(Cart cart);
+        void ClearCart();
     }
 }

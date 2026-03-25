@@ -14,6 +14,6 @@
         public ICollection<Order> Orders { get; set; } = new List<Order>();
 
         // Relationship: One customer can have many shopping carts
-        public ICollection<ShoppingCart> ShoppingCarts { get; set; } = new List<ShoppingCart>();
+        // public ICollection<ShoppingCart> ShoppingCarts { get; set; } = new List<ShoppingCart>();
     }
 }

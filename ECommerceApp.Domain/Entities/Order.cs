@@ -3,9 +3,9 @@
     public class Order
     {
         public int Id { get; set; }
-        public int CustomerId { get; set; } // Foreign key to Customer
+        public int? CustomerId { get; set; } // Foreign key to Customer
         public DateTime OrderDate { get; set; }
-        public int TotalAmount { get; set; }
+        public decimal TotalAmount { get; set; }
         public string Status { get; set; }
         public string ShipAddress { get; set; }
 

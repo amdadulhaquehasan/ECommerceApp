@@ -64,5 +64,11 @@ namespace ECommerceApp.BusinessLayer.Modules.Carts
             }
             _cartRepository.SaveCart(cart);
         }
+
+        public void ClearCart()
+        {
+            _cartRepository.ClearCart();
+        }
+
     }
 }

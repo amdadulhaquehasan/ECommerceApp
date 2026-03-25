@@ -1,0 +1,12 @@
+﻿@model int
+@{
+    ViewData["Title"] = "Order Confirmation";
+}
+
+<div class="container py-4">
+    <div class="alert alert-success">
+        <h4>Thank you for your order!</h4>
+        <p class="mb-0">Your order number is <strong>#@Model</strong>.</p>
+    </div>
+    <a asp-controller="Store" asp-action="Index" class="btn btn-primary">Continue Shopping</a>
+</div>
