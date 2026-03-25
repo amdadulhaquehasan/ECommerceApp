@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceApp.Controllers
 {
-    public class CartController : BaseCartController
+    public class CartController : Controller
     {
+        protected readonly ICartViewModelProvider _cartViewModelProvider;
+
         public CartController(ICartViewModelProvider cartViewModelProvider)
-            : base(cartViewModelProvider)
         {
+            _cartViewModelProvider = cartViewModelProvider;
         }
 
         public IActionResult Index()
