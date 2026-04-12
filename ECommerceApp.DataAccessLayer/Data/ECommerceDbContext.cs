@@ -1,9 +1,11 @@
-﻿using ECommerceApp.Domain.Entities;
+﻿using ECommerceApp.DataAccessLayer.Identity;
+using ECommerceApp.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceApp.DataAccessLayer.Data
 {
-    public class ECommerceDbContext : DbContext
+    public class ECommerceDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public ECommerceDbContext(DbContextOptions<ECommerceDbContext> options) : base(options)
         {
