@@ -3,6 +3,7 @@ using ECommerceApp.Domain.Enums;
 using ECommerceApp.PresentationLayer.Modules.Account.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ECommerceApp.Controllers
 {
@@ -62,8 +63,53 @@ namespace ECommerceApp.Controllers
                 return View(model);
             }
 
+            var claimResult = await _userManager.AddClaimAsync(user, new Claim("FullName", user.FullName));
+            if (!claimResult.Succeeded)
+            {
+                foreach (var error in claimResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View(model);
+            }
+
             await _signInManager.SignInAsync(user, isPersistent: true);
             return RedirectToReturnUrl(returnUrl);
+        }
+
+        [HttpGet]
+        public IActionResult Login(string? returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+            if (result.Succeeded)
+            {
+                return RedirectToReturnUrl(returnUrl);
+            }
+
+            ModelState.AddModelError(string.Empty, "Invalid username or password.");
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         private IActionResult RedirectToReturnUrl(string returnUrl)

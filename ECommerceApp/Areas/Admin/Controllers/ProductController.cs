@@ -2,12 +2,14 @@
 using ECommerceApp.PresentationLayer.Modules.Categories.Interface;
 using ECommerceApp.PresentationLayer.Modules.Products.Interfaces;
 using ECommerceApp.PresentationLayer.Modules.Products.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerceApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
     public class ProductController : Controller
     {
         #region Dependencies

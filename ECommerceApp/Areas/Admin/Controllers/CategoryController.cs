@@ -1,11 +1,14 @@
 ﻿using ECommerceApp.BusinessLayer.Exceptions;
 using ECommerceApp.PresentationLayer.Modules.Categories.Interface;
 using ECommerceApp.PresentationLayer.Modules.Categories.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    // [Authorize(Policy = "FullNameOnly")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
     public class CategoryController : Controller
     {
         #region Dependencies
