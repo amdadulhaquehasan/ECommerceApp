@@ -7,23 +7,14 @@ namespace ECommerceApp.PresentationLayer.Modules.Orders.ViewModel
     {
         public CartViewModel Cart { get; set; } = null!;
 
-        [Required(ErrorMessage = "First name is required")]
-        [StringLength(100)]
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; } = string.Empty;
-
-        [Required(ErrorMessage = "Last name is required")]
-        [StringLength(100)]
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; } = string.Empty;
+        
+        [Display(Name = "Full Name")]
+        public string FullName { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress]
         [StringLength(200)]
         public string Email { get; set; } = string.Empty;
-
-        [StringLength(50)]
-        public string? Phone { get; set; }
 
         [Required(ErrorMessage = "Shipping address is required")]
         [StringLength(500)]

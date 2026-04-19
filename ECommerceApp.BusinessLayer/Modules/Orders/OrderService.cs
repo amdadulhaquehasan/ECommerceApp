@@ -17,7 +17,7 @@ namespace ECommerceApp.BusinessLayer.Modules.Orders
             _orderRepository = orderRepository;
         }
 
-        public async Task<Order> PlaceOrderAsync(string firstName, string lastName, string email, string phone, string shipAddress)
+        public async Task<Order> PlaceOrderAsync(string userId, string shipAddress)
         {
             var cart = _cartService.GetCart();
             if (cart == null || cart.Items.Count == 0)
@@ -25,19 +25,9 @@ namespace ECommerceApp.BusinessLayer.Modules.Orders
                 throw new InvalidOperationException("Cart is empty");
             }
 
-            var customer = new Customer
-            {
-                FirstName = firstName,
-                LastName = lastName,
-                Email = email,
-                Phone = phone ?? "",
-                Address = shipAddress,
-                CreatedDate = DateTime.UtcNow
-            };
-
             var order = new Order
             {
-                CustomerId = null,
+                ApplicationUserId = userId,
                 OrderDate = DateTime.UtcNow,
                 TotalAmount = cart.GrandTotal,
                 Status = "Pending",

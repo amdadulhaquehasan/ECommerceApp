@@ -1,9 +1,12 @@
 ﻿using ECommerceApp.PresentationLayer.Modules.Orders.Interfaces;
 using ECommerceApp.PresentationLayer.Modules.Orders.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ECommerceApp.Controllers
 {
+    [Authorize]
     public class CheckoutController : Controller
     {
         private readonly ICheckoutViewModelProvider _checkoutViewModelProvider;
@@ -13,9 +16,15 @@ namespace ECommerceApp.Controllers
             _checkoutViewModelProvider = checkoutViewModelProvider;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var model = _checkoutViewModelProvider.GetCheckoutViewModel();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return Challenge();
+            }
+
+            var model = await _checkoutViewModelProvider.GetCheckoutViewModel(userId);
             if (model == null)
             {
                 TempData["Message"] = "Your cart is empty";
@@ -28,10 +37,16 @@ namespace ECommerceApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(CheckoutViewModel model)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return Challenge();
+            }
+
             ModelState.Remove("Cart");
             if (ModelState.IsValid)
             {
-                var confirmation = await _checkoutViewModelProvider.PlaceOrderAsync(model);
+                var confirmation = await _checkoutViewModelProvider.PlaceOrderAsync(model, userId);
                 if (confirmation == null)
                 {
                     TempData["Message"] = "Could not place order. Cart may be empty";
@@ -42,7 +57,7 @@ namespace ECommerceApp.Controllers
             }
 
             // Repopulate cart summary for redisplay
-            var fresh = _checkoutViewModelProvider.GetCheckoutViewModel();
+            var fresh = await _checkoutViewModelProvider.GetCheckoutViewModel(userId);
             if (fresh != null)
             {
                 model.Cart = fresh.Cart;

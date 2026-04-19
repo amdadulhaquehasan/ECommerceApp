@@ -4,7 +4,7 @@ namespace ECommerceApp.PresentationLayer.Modules.Orders.Interfaces
 {
     public interface ICheckoutViewModelProvider
     {
-        CheckoutViewModel? GetCheckoutViewModel();
-        Task<OrderConfirmViewModel> PlaceOrderAsync(CheckoutViewModel model);
+        Task<CheckoutViewModel?> GetCheckoutViewModel(string userId);
+        Task<OrderConfirmViewModel> PlaceOrderAsync(CheckoutViewModel model, string userId);
     }
 }

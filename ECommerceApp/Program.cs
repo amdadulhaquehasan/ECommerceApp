@@ -25,7 +25,6 @@ using ECommerceApp.PresentationLayer.Modules.Orders.Interfaces;
 using ECommerceApp.PresentationLayer.Modules.Products;
 using ECommerceApp.PresentationLayer.Modules.Products.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.WebSockets;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -67,6 +66,12 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("FullNameOnly", policy => policy.RequireClaim("FullName", "Super Admin")
     .RequireRole("SuperAdmin"));
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Error/UnAuthorized";
 });
 
 builder.Services.AddScoped<ICategoryViewModelProvider, CategoryViewModelProvider>();

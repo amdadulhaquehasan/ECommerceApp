@@ -16,7 +16,6 @@ namespace ECommerceApp.DataAccessLayer.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-        public DbSet<Customer> Customers { get; set; }
         public DbSet<Payment> Payments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,8 +31,6 @@ namespace ECommerceApp.DataAccessLayer.Data
 
             modelBuilder.Entity<OrderItem>().ToTable("OrderItem");
 
-            modelBuilder.Entity<Customer>().ToTable("Customer");
-
             modelBuilder.Entity<Payment>().ToTable("Payment");
 
             modelBuilder.Entity<Category>().HasData(
@@ -48,12 +45,6 @@ namespace ECommerceApp.DataAccessLayer.Data
                 .HasOne(p => p.Category)
                 .WithMany(c => c.products)
                 .HasForeignKey(p => p.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Order>()
-                .HasOne(o => o.Customer)
-                .WithMany(c => c.Orders)
-                .HasForeignKey(o => o.CustomerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<OrderItem>()
