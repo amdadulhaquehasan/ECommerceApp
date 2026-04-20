@@ -1,16 +1,19 @@
 ﻿using ECommerceApp.BusinessLayer.Modules.Carts.Interfaces;
 using ECommerceApp.DataAccessLayer.Modules.Carts.Interfaces;
 using ECommerceApp.Domain.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace ECommerceApp.BusinessLayer.Modules.Carts
 {
     public class CartService : ICartService
     {
         private readonly ICartRepository _cartRepository;
+        private readonly ILogger<CartService> _logger;
 
-        public CartService(ICartRepository cartRepository)
+        public CartService(ICartRepository cartRepository, ILogger<CartService> logger)
         {
             _cartRepository = cartRepository;
+            _logger = logger;
         }
 
         public void AddItem(int productId, string productName, decimal unitPrice, int quantity = 1)
@@ -32,6 +35,7 @@ namespace ECommerceApp.BusinessLayer.Modules.Carts
                 });
             }
             _cartRepository.SaveCart(cart);
+            _logger.LogInformation("Cart with product name {ProductName} saved.", productName);
         }
 
         public Cart GetCart() => _cartRepository.GetCart();
