@@ -1,0 +1,6 @@
+@ECommerce.API_HostAddress = https://localhost:7133
+
+GET {{ECommerce.API_HostAddress}}/products/
+Accept: application/json
+
+###

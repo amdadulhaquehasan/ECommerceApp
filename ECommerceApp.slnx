@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="ECommerce.API/ECommerce.API.csproj" Id="a96795c7-86a7-4f80-8eae-a9fe19a97da0" />
   <Project Path="ECommerceApp.BusinessLayer/ECommerceApp.BusinessLayer.csproj" Id="8f21e4d0-d273-44b9-b376-006371179c0b" />
   <Project Path="ECommerceApp.DataAccessLayer/ECommerceApp.DataAccessLayer.csproj" Id="d24c5130-8ebe-4051-8111-5d485a798f4b" />
   <Project Path="ECommerceApp.Domain/ECommerceApp.Domain.csproj" Id="54b5253d-5f48-48be-81a7-9b36864247e1" />
