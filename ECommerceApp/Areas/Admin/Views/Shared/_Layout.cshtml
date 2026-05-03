@@ -1,4 +1,5 @@
-﻿@{
+﻿@using ECommerceApp.Domain.Enums
+@{
     var fullName = User.FindFirst("FullName")?.Value;
 }
 ﻿
@@ -33,7 +34,16 @@
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Public Site</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Order" asp-action="Index">Orders</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole(AppRole.SuperAdmin.ToString()))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Account" asp-action="Register">Create Admin</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Public Site</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
@@ -52,12 +62,8 @@
                         }
                         else
                         {
-
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
                             </li>
                         }
                     </ul>

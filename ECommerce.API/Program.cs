@@ -1,3 +1,13 @@
+using ECommerceApp.BusinessLayer.Modules.Categories;
+using ECommerceApp.BusinessLayer.Modules.Categories.Interface;
+using ECommerceApp.DataAccessLayer.Data;
+using ECommerceApp.DataAccessLayer.Modules.Categories;
+using ECommerceApp.DataAccessLayer.Modules.Categories.Interfaces;
+using ECommerceApp.PresentationLayer.Modules.Categories;
+using ECommerceApp.PresentationLayer.Modules.Categories.Interface;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,7 +19,29 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day, outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext} {Message:lj}{NewLine}{Exception}")
+    .CreateLogger();
+builder.Host.UseSerilog(Log.Logger);
+
+builder.Services.AddDbContext<ECommerceDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
+
+builder.Services.AddAutoMapper(cfg => { }, typeof(CategoryMappingProfile).Assembly);
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICategoryViewModelProvider, CategoryViewModelProvider>();
+
 var app = builder.Build();
+
+app.Logger.LogInformation("This is an information log.");
+app.Logger.LogWarning("This is a warning log.");
+app.Logger.LogError("This is an error log.");
+app.Logger.LogCritical("This is a critical log.");
 
 //var products = new List<Product>
 //{
@@ -27,6 +59,7 @@ if (app.Environment.IsDevelopment())
 };
 
 app.UseHttpsRedirection();
+app.UseSerilogRequestLogging();
 app.UseRouting();
 
 #region Minimal API

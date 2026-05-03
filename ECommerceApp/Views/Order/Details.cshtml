@@ -1,0 +1,72 @@
+﻿@model ECommerceApp.PresentationLayer.Modules.Orders.ViewModel.OrderDetailsViewModel
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<h2 class="mb-4">Order Details</h2>
+
+<div class="card mb-4">
+
+    <div class="card-body">
+
+        <p>
+            <strong>Order Id:</strong> @Model.Id
+        </p>
+
+        <p>
+            <strong>Order Date:</strong>
+            @Model.OrderDate.ToString("dd MMM yyyy")
+        </p>
+
+        <p>
+            <strong>Status:</strong> @Model.Status
+        </p>
+
+        <p>
+            <strong>Total:</strong>
+            ৳ @Model.TotalAmount
+        </p>
+
+        <p>
+            <strong>Shipping Address:</strong>
+            @Model.ShipAddress
+        </p>
+
+    </div>
+
+</div>
+
+<h4>Items</h4>
+
+<table class="table table-bordered table-striped">
+
+    <thead>
+        <tr>
+            <th>Product Id</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+
+                <td>@item.ProductId</td>
+
+                <td>@item.Quantity</td>
+
+                <td>৳ @item.UnitPrice</td>
+
+                <td>৳ @item.SubTotal</td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>

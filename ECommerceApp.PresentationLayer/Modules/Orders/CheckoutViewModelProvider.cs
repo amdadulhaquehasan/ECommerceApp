@@ -12,13 +12,11 @@ namespace ECommerceApp.PresentationLayer.Modules.Orders
     {
         private readonly ICartViewModelProvider _cartViewModelProvider;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ICartService _cartService;
         private readonly IOrderService _orderService;
 
-        public CheckoutViewModelProvider(IOrderService orderService, ICartService cartService, ICartViewModelProvider cartViewModelProvider, UserManager<ApplicationUser> userManager)
+        public CheckoutViewModelProvider(IOrderService orderService,  ICartViewModelProvider cartViewModelProvider, UserManager<ApplicationUser> userManager)
         {
             _orderService = orderService;
-            _cartService = cartService;
             _cartViewModelProvider = cartViewModelProvider;
             _userManager = userManager;
         }

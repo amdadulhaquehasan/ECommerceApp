@@ -6,5 +6,8 @@ namespace ECommerceApp.DataAccessLayer.Modules.Orders.Interfaces
     {
         Task<Order> AddAsync(Order order);
         Task<Order?> GetByIdAsync(int orderId);
+        Task<List<Order>> GetOrdersByUserIdAsync(string userId);
+        Task<List<Order>> GetAllOrdersAsync();
+        Task UpdateAsync(Order order);
     }
 }

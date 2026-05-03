@@ -28,5 +28,28 @@ namespace ECommerceApp.DataAccessLayer.Modules.Orders
                 .Include(o => o.OrderItems)
                 .FirstOrDefaultAsync(o => o.Id == orderId);
         }
+
+        public async Task<List<Order>> GetAllOrdersAsync()
+        {
+            return await _context.Orders
+                .AsNoTracking()
+                .OrderBy(o => o.OrderDate)
+                .ToListAsync();
+        }
+
+        public async Task<List<Order>> GetOrdersByUserIdAsync(string userId)
+        {
+            return await _context.Orders
+                .AsNoTracking()
+                .Where(o => o.ApplicationUserId == userId)
+                .OrderBy(o => o.OrderDate)
+                .ToListAsync();
+        }
+
+        public async Task UpdateAsync(Order order)
+        {
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync();
+        }
     }
 }

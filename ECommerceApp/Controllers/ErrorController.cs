@@ -4,6 +4,14 @@ namespace ECommerceApp.Controllers
 {
     public class ErrorController : Controller
     {
+        [Route("/Error/403")]
+        [HttpGet]
+        public IActionResult Forbidden()
+        {
+            Response.StatusCode = 403;
+            return View("Forbidden");
+        }
+
         [Route("/Error/StatusCode")]
         [HttpGet]
         public IActionResult StatusCode(int statusCode)
@@ -14,8 +22,8 @@ namespace ECommerceApp.Controllers
             {
                 case 404:
                     return View("NotFound");
-                case 403:
-                    return View("Forbidden");
+                //case 403:
+                //    return View("Forbidden");
                 case 401:
                     return View("Unauthorized");
                 default:

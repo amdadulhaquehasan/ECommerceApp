@@ -52,6 +52,7 @@ builder.Services.AddDbContext<ECommerceDbContext>(options =>
 builder.Services.AddAutoMapper(cfg => { }, typeof(CategoryMappingProfile).Assembly);
 builder.Services.AddAutoMapper(cfg => { }, typeof(ProductMappingProfile).Assembly);
 builder.Services.AddAutoMapper(cfg => { }, typeof(CartMappingProfile).Assembly);
+builder.Services.AddAutoMapper(cfg => { }, typeof(OrderMappingProfile).Assembly);
 
 // Session related services
 builder.Services.AddDistributedMemoryCache();
@@ -84,7 +85,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
-    options.AccessDeniedPath = "/Error/UnAuthorized";
+    options.AccessDeniedPath = "/Error/403";
 });
 
 builder.Services.AddScoped<ICategoryViewModelProvider, CategoryViewModelProvider>();
@@ -102,6 +103,7 @@ builder.Services.AddScoped<ICartRepository, SessionCartRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ICheckoutViewModelProvider, CheckoutViewModelProvider>();
+builder.Services.AddScoped<IOrderViewModelProvider, OrderViewModelProvider>();
 
 var app = builder.Build();
 
@@ -113,7 +115,7 @@ app.Logger.LogWarning("This is a warning log.");
 app.Logger.LogError("This is an error log.");
 app.Logger.LogCritical("This is a critical log.");
 
-app.UseStatusCodePagesWithReExecute("/Error/StatusCode", "?Statuscode={0}");
+app.UseStatusCodePagesWithReExecute("/Error/StatusCode", "?statusCode={0}");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
